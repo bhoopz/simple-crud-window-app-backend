@@ -4,7 +4,6 @@ const {getWindows, displayIndex} = require('../controllers/indexController');
 
 /* GET home page. */
 router.route('/').get(displayIndex);
-router.route('/dashboard').get(getWindows);
 
 
 

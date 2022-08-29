@@ -1,13 +1,22 @@
+const Window = require('../models/window');
+
 const displayIndex = (req, res) => {
-    res.send({strona: 'glowna'})
+    Window.find().then(result => {
+        res.json(result)
+    }).catch(error => console.log(error))
 }
 
-
-const getWindows = (req, res) => {
-    res.send({okna: "wysle"})
-}
+// let window = new Window({
+    //     type: 'Awning Window',
+    //     material: 'wood',
+    //     size: [865, 1135],
+    //     color: 'brown',
+    //     price: 99.99
+    // })
+    // window.save().then(window => {
+    //     console.log(window, 'saved')
+    //     }).catch(error => console.log(error))
 
 module.exports = {
-    getWindows,
     displayIndex,
 }
