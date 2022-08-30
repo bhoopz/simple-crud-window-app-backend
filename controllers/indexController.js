@@ -13,11 +13,11 @@ const deleteRecord = async (req, res) => {
 }
 
 const editRecord = async (req, res) => {
-    const {newWindow} = req.body
+    //const {newWindow} = req.body
     // await Window.findOneAndUpdate({ _id: req.params.id }, newWindow)
     // .then(response => console.log(response))
     // .catch(error => console.log(error))
-    console.log(newWindow)
+    console.log(req.body, req.params)
 }
 
 // let window = new Window({
