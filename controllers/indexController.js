@@ -1,9 +1,10 @@
 const Window = require('../models/window');
 
 const displayIndex = (req, res) => {
-    Window.find().then(result => {
-        res.json(result)
-    }).catch(error => console.log(error))
+    // Window.find().then(result => {
+    //     res.json(result)
+    // }).catch(error => console.log(error))
+    console.log('COOOO')
 }
 
 const deleteRecord = async (req, res) => {
