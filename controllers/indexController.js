@@ -13,10 +13,19 @@ const deleteRecord = async (req, res) => {
 }
 
 const editRecord = async (req, res) => {
-    const newWindow = req.body
-    await Window.findOneAndUpdate({ _id: req.params.id }, newWindow)
+    const updatedWindow = req.body
+    await Window.findOneAndUpdate({ _id: req.params.id }, updatedWindow)
     .then(() => res.status(200).send("Successfully updated"))
     .catch(error => res.status(400).send(error))
+}
+
+const addRecord = async (req, res) => {
+    const newWindow = req.body
+    const window = new Window(newWindow)
+    await window.save()
+    .then(() => res.status(200).send("Successfully added"))
+    .catch(error => res.status(400).send(error))
+       
 }
 
 // let window = new Window({
@@ -33,5 +42,6 @@ const editRecord = async (req, res) => {
 module.exports = {
     displayIndex,
     deleteRecord,
-    editRecord
+    editRecord,
+    addRecord,
 }
