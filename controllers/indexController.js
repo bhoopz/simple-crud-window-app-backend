@@ -8,7 +8,7 @@ const displayIndex = (req, res) => {
 
 const deleteRecord = async (req, res) => {
     await Window.deleteOne({ _id: req.params.id })
-    .then(response => console.log(response))
+    .then(response => res.send({deleted: response.deletedCount}))
     .catch(error => console.log(error))
 }
 
