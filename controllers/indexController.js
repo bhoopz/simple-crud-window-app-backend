@@ -7,7 +7,8 @@ const displayIndex = (req, res) => {
 }
 
 const deleteRecord = async (req, res) => {
-    console.log(req.params)
+    console.log('wchodzi')
+    await Window.deleteOne({ _id: req.params.id }).then(response => console.log('usunięto'))
 }
 
 // let window = new Window({
