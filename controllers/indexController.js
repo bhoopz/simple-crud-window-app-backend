@@ -15,7 +15,7 @@ const deleteRecord = async (req, res) => {
 const editRecord = async (req, res) => {
     const newWindow = req.body
     await Window.findOneAndUpdate({ _id: req.params.id }, newWindow)
-    .then(response => console.log(response))
+    .then(response => console.log(response), res.send({success: true}))
     .catch(error => console.log(error))
 }
 
