@@ -4,7 +4,6 @@ const displayIndex = async (req, res) => {
     await Window.find().then(result => {
         res.json(result)
     }).catch(error => console.log(error))
-    console.log('COOOO')
 }
 
 const deleteRecord = async (req, res) => {
