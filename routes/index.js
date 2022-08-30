@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const {displayIndex, deleteRecord} = require('../controllers/indexController');
+const {displayIndex, deleteRecord, editRecord} = require('../controllers/indexController');
 
 /* GET home page. */
 router.route('/').get(displayIndex);
-router.route('/window/:id').delete(deleteRecord);
+router.route('/window/:id').delete(deleteRecord).put(editRecord);
 
 
 

@@ -12,6 +12,13 @@ const deleteRecord = async (req, res) => {
     .catch(error => console.log(error))
 }
 
+const editRecord = async (req, res) => {
+    const {newWindow} = req.body
+    await Window.findOneAndUpdate({ _id: req.params.id }, newWindow)
+    .then(response => console.log(response))
+    .catch(error => console.log(error))
+}
+
 // let window = new Window({
 //         type: 'Awning Window',
 //         material: 'wood',
@@ -26,4 +33,5 @@ const deleteRecord = async (req, res) => {
 module.exports = {
     displayIndex,
     deleteRecord,
+    editRecord
 }
