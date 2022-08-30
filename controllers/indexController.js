@@ -8,15 +8,15 @@ const displayIndex = async (req, res) => {
 
 const deleteRecord = async (req, res) => {
     await Window.deleteOne({ _id: req.params.id })
-    .then(response => res.send({deleted: response.deletedCount}))
-    .catch(error => console.log(error))
+    .then(() => res.status(200).send("Successfully deleted"))
+    .catch(error => res.status(400).send(error))
 }
 
 const editRecord = async (req, res) => {
     const newWindow = req.body
     await Window.findOneAndUpdate({ _id: req.params.id }, newWindow)
-    .then(response => console.log(response), res.send({success: true}))
-    .catch(error => console.log(error))
+    .then(() => res.status(200).send("Successfully updated"))
+    .catch(error => res.status(400).send(error))
 }
 
 // let window = new Window({
