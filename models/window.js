@@ -11,7 +11,7 @@ const windowSchema = new Schema({
         required: true
     },
     size: {
-        type: Array,
+        type: String,
         required: true
     },
     color: {
@@ -19,7 +19,7 @@ const windowSchema = new Schema({
         required: true
     },
     price: {
-        type: mongoose.Types.Decimal128,
+        type: String,
         required: true
     },
     createdAt: {
