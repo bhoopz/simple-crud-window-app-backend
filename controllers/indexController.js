@@ -6,6 +6,10 @@ const displayIndex = (req, res) => {
     }).catch(error => console.log(error))
 }
 
+const deleteRecord = async (req, res) => {
+    console.log(req.params)
+}
+
 // let window = new Window({
 //         type: 'Awning Window',
 //         material: 'wood',
@@ -19,4 +23,5 @@ const displayIndex = (req, res) => {
 
 module.exports = {
     displayIndex,
+    deleteRecord,
 }
