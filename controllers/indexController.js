@@ -2,6 +2,7 @@ const Window = require('../models/window');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const displayIndex = async (req, res) => {
 
@@ -67,6 +68,31 @@ const register = async (req, res) => {
         .catch(error => res.status(400).send(error))
     })
 
+}
+
+const login = async (req, res) => {
+
+    let username = req.body.username;
+    let password = req.body.password;
+
+    const user = await User.findOne({ username });
+    if(!user){
+        return res.status(401).send({ message: 'Incorrect username or password', isLogged: false });
+    }
+    
+    if(await bcrypt.compare(password, user.password)){
+
+        req.session.userID = user._id;
+
+        const token = jwt.sign({id: user._id, username: user.username}, process.env.JWT_SECRET)
+        req.session.userToken = token;
+
+        console.log(token)
+        return res.status(200).json({ isLogged: true, isAdmin: user.admin});
+    }else{
+        return res.status(401).send({ message: 'Incorrect username or password', isLogged: false });
+    }
+    
 }
 
 // let window = new Window({

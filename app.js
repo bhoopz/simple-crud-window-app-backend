@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-
+var sessions = require('express-session');
+require('dotenv').config();
 var indexRouter = require('./routes/index');
 
 var app = express();
@@ -14,6 +15,41 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(cors())
+
+app.use(sessions({
+  secret: process.env.SESSION_SECRET,
+  saveUninitialized: false,
+  cookie: { maxAge: halfDay, 
+    sameSite: true,
+    secure: false
+  },
+  resave: false,
+  
+}));
+
+
+app.use((req, res, next) => {
+  console.log(req.session)
+  if (!(req.session && req.session.userToken)) {
+    return next();
+  }
+
+  User.findById(req.session.userID, (err, user) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      return next();
+    }
+
+    user.password = undefined;
+    req.user = user;
+    res.locals.user = user;
+
+    next();
+    });
+})
 
 app.use(logger('dev'));
 app.use(express.json());
