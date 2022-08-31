@@ -54,10 +54,12 @@ const register = (req, res) => {
         let user = new User({
             username: req.body.username,
             password: hashedPass,
+            email: req.body.email,
             admin: req.body.admin
         }) 
         user.save()
         .then(() => res.status(200).send("Successfully registered"))
+        .catch(error => res.status(400).send(error))
     })
 
 }
