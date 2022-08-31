@@ -30,7 +30,7 @@ app.use(sessions({
 
 
 app.use((req, res, next) => {
-  console.log(req.session)
+  console.log(req.session, 'z middleware')
   if (!(req.session && req.session.userToken)) {
     return next();
   }
