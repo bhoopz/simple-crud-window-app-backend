@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var sessions = require('cookie-session');
+var cookieSession = require('cookie-session');
 require('dotenv').config();
 var indexRouter = require('./routes/index');
 
@@ -16,10 +16,10 @@ app.set('view engine', 'jade');
 
 app.use(cors())
 app.set('trust proxy', 1);
-app.use(sessions({
+app.use(cookieSession({
   name: 'session',
-  keys: [process.env.SESSION_SECRET],
-  maxAge: 12 * 60 * 60 * 1000 // 24 hours
+  keys: ['key1', 'key2'],
+  maxAge:  60 * 1000
 }));
 
 
