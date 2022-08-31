@@ -1,4 +1,7 @@
 const Window = require('../models/window');
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const displayIndex = async (req, res) => {
 
@@ -41,7 +44,22 @@ const addRecord = async (req, res) => {
 }
 
 const register = async (req, res) => {
-    console.log(req.body)
+    
+    bcrypt.hash(req.body.password, 10, function(err, hashedPass){
+        if(err){
+            res.json({ error: err})
+        }
+
+        let user = new User({
+            username: req.body.username,
+            password: hashedPass,
+            admin: req.body.admin
+        }) 
+        await user.save()
+        .then(() => res.status(200).send("Successfully registrated"))
+        .catch(error => res.status(400).send(error))
+    })
+
 }
 
 // let window = new Window({
