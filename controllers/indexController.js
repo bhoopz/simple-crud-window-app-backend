@@ -87,7 +87,6 @@ const login = async (req, res) => {
         const token = jwt.sign({id: user._id, username: user.username}, process.env.JWT_SECRET)
         req.session.userToken = token;
         console.log(req.session.userID, '___________________-__-----')
-        req.session.save()
         return res.status(200).json({ isLogged: true, isAdmin: user.admin});
     }else{
         return res.status(401).send({ message: 'Incorrect username or password', isLogged: false });
