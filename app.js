@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var sessions = require('express-session');
+var FileStore = require('session-file-store')(sessions);
 require('dotenv').config();
 var indexRouter = require('./routes/index');
 
@@ -17,6 +18,7 @@ app.set('view engine', 'jade');
 app.use(cors())
 app.set('trust proxy', 1);
 app.use(sessions({
+  store: new FileStore(),
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 * 12, 
