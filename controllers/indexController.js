@@ -45,11 +45,10 @@ const addRecord = async (req, res) => {
 
 const register = async (req, res) => {
     const userExist = await User.find({ username: req.body.username });
-    console.log(userExist)
-    if (userExist)
+    if (userExist.length > 0)
     return res.status(400).send({ message: "User already exists" });
     const emailExist = await User.find({ email: req.body.email });
-    if (emailExist)
+    if (emailExist.length > 0)
     return res.status(400).send({ message: "Email is already in use" });
     
     bcrypt.hash(req.body.password, 10, function(err, hashedPass){
