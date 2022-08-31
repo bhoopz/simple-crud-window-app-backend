@@ -1,13 +1,12 @@
 const Window = require('../models/window');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const displayIndex = async (req, res) => {
 
     const { q } = req.query;
-    const keys = ["type", "size", "material", "color"];
+    const keys = ["type", "size", "material", "color", "price"];
 
     const search = (data) => {
         return data.filter((item) => 
@@ -88,16 +87,6 @@ const login = async (req, res) => {
     
 }
 
-// let window = new Window({
-//         type: 'Awning Window',
-//         material: 'wood',
-//         size: '865 X 1135',
-//         color: 'brown',
-//         price: '99.99'
-//     })
-//     window.save().then(window => {
-//         console.log(window, 'saved')
-//         }).catch(error => console.log(error))
 
 module.exports = {
     displayIndex,
