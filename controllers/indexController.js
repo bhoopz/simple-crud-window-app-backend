@@ -43,7 +43,7 @@ const addRecord = async (req, res) => {
        
 }
 
-const register = (req, res) => {
+const register = async (req, res) => {
     const userExist = await User.find({ username: req.body.username });
     if (userExist)
     return res.status(400).send({ message: "User already exists" });
