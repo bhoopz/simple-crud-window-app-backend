@@ -20,11 +20,11 @@ app.set('trust proxy', 1);
 app.use(sessions({
   store: new FileStore(),
   secret: process.env.SESSION_SECRET,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { maxAge: 1000 * 60 * 60 * 12, 
     secure: true
   },
-  resave: true,
+  resave: false,
   
 }));
 
