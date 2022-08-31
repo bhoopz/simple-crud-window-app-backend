@@ -58,7 +58,7 @@ const register = (req, res) => {
         }) 
         user.save()
         .then(() => res.status(200).send("Successfully registered"))
-        .catch(error => res.status(400).send(error), console.log('w catchu', error))
+        .catch(error => res.status(400).send(error), console.log('w catchu'))
     })
 
 }
