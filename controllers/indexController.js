@@ -43,9 +43,10 @@ const addRecord = async (req, res) => {
        
 }
 
-const register = async (req, res) => {
+const register = (req, res) => {
     
-    await bcrypt.hash(req.body.password, 10, function(err, hashedPass){
+    bcrypt.hash(req.body.password, 10, function(err, hashedPass){
+        console.log(req.body.password, req.body.username, req.body.admin)
         if(err){
             res.json({ error: err})
         }
