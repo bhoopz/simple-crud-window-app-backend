@@ -40,6 +40,10 @@ const addRecord = async (req, res) => {
        
 }
 
+const register = async (req, res) => {
+    console.log(req.body)
+}
+
 // let window = new Window({
 //         type: 'Awning Window',
 //         material: 'wood',
@@ -56,4 +60,5 @@ module.exports = {
     deleteRecord,
     editRecord,
     addRecord,
+    register,
 }

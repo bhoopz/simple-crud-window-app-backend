@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-const {displayIndex, deleteRecord, editRecord, addRecord} = require('../controllers/indexController');
+const {displayIndex, deleteRecord, editRecord, addRecord, register} = require('../controllers/indexController');
 
 /* GET home page. */
 router.route('/').get(displayIndex);
 router.route('/window/:id').delete(deleteRecord).put(editRecord);
 router.route('/window/add').post(addRecord);
-
+router.route('/register').post(register);
 
 
 module.exports = router;
