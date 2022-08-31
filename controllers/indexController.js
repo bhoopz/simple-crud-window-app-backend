@@ -1,8 +1,20 @@
 const Window = require('../models/window');
 
 const displayIndex = async (req, res) => {
+
+    const { q } = req.query;
+    const keys = ["type", "size", "material", "color"];
+
+    const search = (data) => {
+        return data.filter((item) => 
+        keys.some((key) => item[key].toLowerCase().includes(q) || 
+        item[key].toUpperCase().includes(q) || 
+        item[key].includes(q))
+        )
+    };
+
     await Window.find().then(result => {
-        res.json(result)
+        res.json(search(result))
     }).catch(error => console.log(error))
 }
 
