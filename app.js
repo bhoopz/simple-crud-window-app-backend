@@ -4,10 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var cookieSession = require('cookie-session');
-require('dotenv').config();
 var indexRouter = require('./routes/index');
-const User = require('./models/user');
+
 
 var app = express();
 
@@ -16,36 +14,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(cors())
-app.set('trust proxy', 1);
-app.use(cookieSession({
-  name: 'session',
-  keys: ['key1', 'key2'],
-  maxAge:  60 * 1000
-}));
-
-
-app.use((req, res, next) => {
-  console.log(req.session, 'z middleware')
-  if (!(req.session && req.session.userToken)) {
-    return next();
-  }
-
-  User.findById(req.session.userID, (err, user) => {
-    if (err) {
-      return next(err);
-    }
-
-    if (!user) {
-      return next();
-    }
-
-    user.password = undefined;
-    req.user = user;
-    res.locals.user = user;
-
-    next();
-    });
-})
 
 app.use(logger('dev'));
 app.use(express.json());
