@@ -46,8 +46,8 @@ const addRecord = async (req, res) => {
 const register = (req, res) => {
     
     bcrypt.hash(req.body.password, 10, function(err, hashedPass){
-        console.log(req.body.password, req.body.username, req.body.admin)
         if(err){
+            console.log('w ifie', err)
             res.json({ error: err})
         }
 
@@ -58,7 +58,7 @@ const register = (req, res) => {
         }) 
         user.save()
         .then(() => res.status(200).send("Successfully registered"))
-        .catch(error => res.status(400).send(error))
+        .catch(error => res.status(400).send(error), console.log('w catchu', error))
     })
 
 }
