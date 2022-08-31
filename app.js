@@ -7,6 +7,7 @@ var cors = require('cors');
 var cookieSession = require('cookie-session');
 require('dotenv').config();
 var indexRouter = require('./routes/index');
+const User = require('./models/user');
 
 var app = express();
 
