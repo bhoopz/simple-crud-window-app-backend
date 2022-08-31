@@ -15,7 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(cors())
-
+app.set('trust proxy', 1);
 app.use(sessions({
   secret: process.env.SESSION_SECRET,
   saveUninitialized: false,
