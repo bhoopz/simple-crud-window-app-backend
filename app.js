@@ -6,6 +6,7 @@ var logger = require("morgan");
 var cors = require("cors");
 var windowRouter = require("./routes/window");
 var authRouter = require("./routes/auth");
+const { authenticateToken } = require("./controllers/authController");
 
 var app = express();
 
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", windowRouter);
+app.use("/", authenticateToken, windowRouter);
 app.use("/", authRouter);
 
 // catch 404 and forward to error handler

@@ -7,14 +7,9 @@ const {
   addRecord,
 } = require("../controllers/windowController");
 
-const { authenticateToken } = require("../controllers/authController");
-
 /* GET home page. */
-router.route("/").get(authenticateToken, displayIndex);
-router
-  .route("/windows/:id")
-  .delete(authenticateToken, deleteRecord)
-  .put(authenticateToken, editRecord);
-router.route("/windows").post(authenticateToken, addRecord);
+router.route("/").get(displayIndex);
+router.route("/windows/:id").delete(deleteRecord).put(editRecord);
+router.route("/windows").post(addRecord);
 
 module.exports = router;
