@@ -57,11 +57,11 @@ const authenticateToken = (req, res, next) => {
   var token = req.headers.authorization.split(" ")[1];
 
   if (token == null) res.status(401);
-
+  console.log(token);
   jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
     if (err) res.status(403);
     req.user = user;
-
+    console.log(user);
     if (req.user) next();
     else res.status(403).send("Token required");
   });
