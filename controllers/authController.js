@@ -60,6 +60,7 @@ const authenticateToken = (req, res, next) => {
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) res.status(403);
     req.user = user;
+    console.log(req.user);
     if (req.user) next();
     else res.status(403).send("Token required");
   });
