@@ -55,14 +55,10 @@ const login = async (req, res) => {
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["x-access-token"];
-  const token = authHeader && authHeader.split(".")[1];
+  const token = authHeader && authHeader.split(" ")[1];
   if (token == null) res.status(401);
-  console.log(
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-      console.log(user);
-    })
-  );
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+  console.log(authHeader);
+  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
     if (err) res.status(403);
     req.user = user;
     console.log(user);
