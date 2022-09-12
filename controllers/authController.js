@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const register = async (req, res) => {
@@ -23,7 +24,7 @@ const register = async (req, res) => {
     });
     user
       .save()
-      .then(() => res.status(200).send("Successfully registered"))
+      .then(() => res.status(201).send("Successfully registered"))
       .catch((error) => res.status(500).send(error));
   });
 };
@@ -40,7 +41,11 @@ const login = async (req, res) => {
   }
 
   if (await bcrypt.compare(password, user.password)) {
-    return res.status(200).json({ isLogged: true, isAdmin: user.admin });
+    const accessToken = jwt.sign({ user }, process.env.JWT_SECRET);
+
+    return res
+      .status(200)
+      .json({ isLogged: true, isAdmin: user.admin, accessToken: accessToken });
   } else {
     return res
       .status(401)
@@ -48,4 +53,16 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) res.status(401);
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) res.status(403);
+    req.user = user;
+    if (req.user) next();
+    else res.status(403).send("Token required");
+  });
+};
+
+module.exports = { register, login, authenticateToken };
