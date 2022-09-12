@@ -57,7 +57,7 @@ const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["x-access-token"];
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) res.status(401);
-  console.log(authHeader);
+  console.log(token);
   jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
     if (err) res.status(403);
     req.user = user;
