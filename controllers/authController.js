@@ -56,8 +56,12 @@ const login = async (req, res) => {
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["x-access-token"];
   const token = authHeader && authHeader.split(".")[1];
-  console.log(token);
   if (token == null) res.status(401);
+  console.log(
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      console.log(user);
+    })
+  );
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) res.status(403);
     req.user = user;
