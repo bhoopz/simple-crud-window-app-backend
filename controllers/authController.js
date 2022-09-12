@@ -54,7 +54,7 @@ const login = async (req, res) => {
 };
 
 const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
+  const authHeader = req.headers["x-access-token"];
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) res.status(401);
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
