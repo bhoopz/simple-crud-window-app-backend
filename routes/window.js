@@ -11,7 +11,10 @@ const { authenticateToken } = require("../controllers/authController");
 
 /* GET home page. */
 router.route("/").get(authenticateToken, displayIndex);
-router.route("/windows/:id").delete(deleteRecord).put(editRecord);
-router.route("/windows").post(addRecord);
+router
+  .route("/windows/:id")
+  .delete(authenticateToken, deleteRecord)
+  .put(authenticateToken, editRecord);
+router.route("/windows").post(authenticateToken, addRecord);
 
 module.exports = router;
